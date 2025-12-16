@@ -1,6 +1,6 @@
 
 -- Create categories table
-CREATE TABLE categories (
+CREATE TABLE IF NOT EXISTS categories (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     type TEXT CHECK (type IN ('Expense', 'Income')) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE categories (
 );
 
 -- Trigger to update `updated_at` on row updates
-CREATE TRIGGER update_categories_timestamp
+CREATE TRIGGER IF NOT EXISTS update_categories_timestamp
 AFTER UPDATE ON categories
 FOR EACH ROW
 BEGIN
@@ -17,19 +17,20 @@ BEGIN
 END;
 
 -- Create transactions table
-CREATE TABLE transactions (
+CREATE TABLE IF NOT EXISTS transactions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     amount DECIMAL(10, 2) NOT NULL,
     type TEXT CHECK (type IN ('Expense', 'Income')) NOT NULL,
-    category_id INTEGER,
+    category_id INTEGER NOT NULL,
     description TEXT,
+    date INTEGER NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
 -- Trigger to update `updated_at` on row updates
-CREATE TRIGGER update_transactions_timestamp
+CREATE TRIGGER IF NOT EXISTS update_transactions_timestamp
 AFTER UPDATE ON transactions
 FOR EACH ROW
 BEGIN
@@ -60,8 +61,4 @@ INSERT INTO categories (name, type) VALUES
 ('Investments', 'Income'),
 ('Rental Income', 'Income'),
 ('Sales Revenue', 'Income'),
-('Interest Income', 'Income'),
-('Dividends', 'Income'),
-('Gifts', 'Income'),
-('Pension', 'Income'),
-('Royalties', 'Income');
+('Interest Income', 'Income');
