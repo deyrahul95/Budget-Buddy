@@ -1,5 +1,6 @@
 import { Category, Transaction } from "@/types";
-import { StyleSheet, Text, View } from "react-native";
+import { Text } from "react-native";
+import Card from "../ui/Card";
 
 type IProps = {
   transaction: Transaction;
@@ -11,14 +12,10 @@ export default function TransactionListItem({
   categoryInfo,
 }: IProps) {
   return (
-    <View style={styles.card}>
+    <Card>
       <Text>
         {categoryInfo?.name} | {transaction.description} | {transaction.amount}
       </Text>
-    </View>
+    </Card>
   );
 }
-
-const styles = StyleSheet.create({
-  card: { flex: 1 },
-});
