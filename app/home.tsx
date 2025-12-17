@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import TransactionList from "@/components/TransactionList";
+import TransactionList from "@/components/transaction/TransactionList";
 import { DBQuery } from "@/config/dbConfig";
 import { Category, Transaction } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
