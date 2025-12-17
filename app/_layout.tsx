@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader";
 import { DBConfig } from "@/config/dbConfig";
 import { Stack } from "expo-router";
 import { SQLiteProvider } from "expo-sqlite";
@@ -5,7 +6,7 @@ import { Suspense } from "react";
 
 export default function RootLayout() {
   return (
-    <Suspense>
+    <Suspense fallback={<Loader />}>
       <SQLiteProvider
         databaseName={DBConfig.DBName}
         assetSource={{ assetId: DBConfig.DBAssetPath }}

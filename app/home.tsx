@@ -9,7 +9,9 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Text>
+        Welcome to Budget Buddy; Your one stop solution for expense tracking
+      </Text>
     </View>
   );
 }
