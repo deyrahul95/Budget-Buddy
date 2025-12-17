@@ -1,19 +1,40 @@
-# Welcome to your Expo app 👋
+# Budget Buddy Expense Tracker Mobile Application 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Effortlessly track your income and expenses right from your smartphone, all while ensuring your data remains secure. With an intuitive and visually appealing user interface, you can easily add expenses at any time throughout the day. All your data is stored locally on your device, so you don’t need to worry about internet access or a laptop. Whether you want to monitor your expenses for the current month or for the year, Budget Buddy lets you plan accordingly.
+
+## Technology Used
+
+- [Expo](https://docs.expo.dev/)
+- [Expo-Sqlite](https://docs.expo.dev/versions/latest/sdk/sqlite/)
+- [Typescript](https://www.typescriptlang.org/)
+- [NodeJS](https://nodejs.org/en/download)
+- [BUN](https://bun.sh/)
+
+## Prerequires
+
+- [NodeJS](https://nodejs.org/en/download) >= version 20
+- [Bun](https://bun.sh/)
+- [Expo Go](https://expo.dev/go)
 
 ## Get started
 
-1. Install dependencies
+1. Clone the repository
 
    ```bash
-   npm install
+   git clone https://github.com/deyrahul95/Budget-Buddy.git
+   cd Budget-Buddy
    ```
 
-2. Start the app
+2. Install dependencies
 
    ```bash
-   npx expo start
+   bun install
+   ```
+
+3. Start the app
+
+   ```bash
+   bun start
    ```
 
 In the output, you'll find options to open the app in a
@@ -23,18 +44,6 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
 ## Learn more
 
 To learn more about developing your project with Expo, look at the following resources:
@@ -42,9 +51,3 @@ To learn more about developing your project with Expo, look at the following res
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
