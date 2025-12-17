@@ -1,10 +1,10 @@
 export type Transaction = {
   id: number;
-  category_id: number;
   amount: number;
-  date: number;
-  description: number;
   type: "Expense" | "Income";
+  category_id: number;
+  description: string | null;
+  date: number;
   created_at: string;
   updated_at: string;
 };

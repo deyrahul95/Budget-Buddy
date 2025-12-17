@@ -1,5 +1,6 @@
 import { Category, Transaction } from "@/types";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import TransactionListItem from "./TransactionListItem";
 
 type IProps = {
   categories: Category[];
@@ -12,6 +13,10 @@ export default function TransactionList({
   transactions,
   deleteTransaction,
 }: IProps) {
+  const getCategoryInfo = (category_id: number): Category | undefined => {
+    return categories.find((item: Category) => item.id === category_id);
+  };
+
   return (
     <View style={styles.container}>
       {transactions.map((transaction: Transaction) => (
@@ -20,10 +25,10 @@ export default function TransactionList({
           activeOpacity={0.7}
           onLongPress={() => deleteTransaction(transaction.id)}
         >
-          <Text>
-            {transaction.type} | {transaction.description} |{" "}
-            {transaction.amount}
-          </Text>
+          <TransactionListItem
+            transaction={transaction}
+            categoryInfo={getCategoryInfo(transaction.category_id)}
+          />
         </TouchableOpacity>
       ))}
     </View>

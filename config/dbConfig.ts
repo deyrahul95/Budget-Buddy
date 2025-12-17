@@ -5,7 +5,7 @@ export const DBConfig = {
 
 export const DBQuery = {
   // Transaction
-  GetAllTransactions: "SELECT * FROM transactions ORDER BY date DESC;",
+  GetAllTransactions: "SELECT * FROM transactions;",
   DeleteTransaction: "DELETE FROM transaction WHERE id = ?;",
 
   // Category
