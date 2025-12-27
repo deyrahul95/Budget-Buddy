@@ -17,9 +17,15 @@ type IAmountProps = {
 };
 
 type ICategoryItemProps = {
-  categoryInfo: Category | undefined;
+  categoryName: string | undefined;
   categoryColor: string;
   emoji: string;
+};
+
+type ITransactionInfoProps = {
+  id: number;
+  date: number;
+  description: string | null;
 };
 
 export default function TransactionListItem({
@@ -38,12 +44,25 @@ export default function TransactionListItem({
 
   return (
     <Card>
-      <Amount amount={transaction.amount} iconName={iconName} color={color} />
-      <CategoryItem
-        categoryInfo={categoryInfo}
-        categoryColor={categoryColor}
-        emoji={emoji}
-      />
+      <View style={styles.row}>
+        <View style={{ width: "40%", gap: 3 }}>
+          <Amount
+            amount={transaction.amount}
+            iconName={iconName}
+            color={color}
+          />
+          <CategoryItem
+            categoryName={categoryInfo?.name}
+            categoryColor={categoryColor}
+            emoji={emoji}
+          />
+        </View>
+        <TransactionInfo
+          id={transaction.id}
+          date={transaction.date}
+          description={transaction.description}
+        />
+      </View>
     </Card>
   );
 }
@@ -65,7 +84,7 @@ const Amount = ({ iconName, color, amount }: IAmountProps) => {
 };
 
 const CategoryItem = ({
-  categoryInfo,
+  categoryName,
   categoryColor,
   emoji,
 }: ICategoryItemProps) => {
@@ -77,7 +96,19 @@ const CategoryItem = ({
       ]}
     >
       <Text style={styles.categoryText}>
-        {emoji} {categoryInfo?.name}
+        {emoji} {categoryName}
+      </Text>
+    </View>
+  );
+};
+
+const TransactionInfo = ({ id, date, description }: ITransactionInfoProps) => {
+  return (
+    <View style={{ flexGrow: 1, gap: 6, flexShrink: 1 }}>
+      <Text style={{ fontSize: 16, fontWeight: "bold" }}>{description}</Text>
+      <Text>Transaction number {id}</Text>
+      <Text style={{ fontSize: 12, color: "gray" }}>
+        {new Date(date * 1000).toDateString()}
       </Text>
     </View>
   );

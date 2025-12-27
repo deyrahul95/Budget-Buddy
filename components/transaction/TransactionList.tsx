@@ -5,7 +5,7 @@ import TransactionListItem from "./TransactionListItem";
 type IProps = {
   categories: Category[];
   transactions: Transaction[];
-  deleteTransaction: (id: number) => void;
+  deleteTransaction: (id: number) => Promise<void>;
 };
 
 export default function TransactionList({
@@ -23,7 +23,7 @@ export default function TransactionList({
         <TouchableOpacity
           key={transaction.id}
           activeOpacity={0.7}
-          onLongPress={() => deleteTransaction(transaction.id)}
+          onLongPress={async () => await deleteTransaction(transaction.id)}
           style={styles.itemContainer}
         >
           <TransactionListItem
