@@ -39,12 +39,7 @@ export default function Home() {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        padding: 15,
-        paddingVertical: 17,
-      }}
-    >
+    <ScrollView>
       <TransactionList
         categories={categories}
         transactions={transactions}
