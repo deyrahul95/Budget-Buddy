@@ -39,6 +39,7 @@ export default function TransactionList({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 12,
   },
   itemContainer: {
     marginHorizontal: 18,

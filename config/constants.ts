@@ -7,13 +7,13 @@ export const CategoryColors: { [key: string]: string } = {
   Electronics: "#8A2BE2", // BlueViolet
   "Dining Out": "#FFA07A", // LightSalmon
   "Breakfast Supplies": "#FFDEAD", // NavajoWhite
-  "Household Items": "#F0E68C", // Khaki
-  "Christmas Gifts": "#FF69B4", // HotPink
-  "New Year Party Supplies": "#DB7093", // PaleVioletRed
-  "Thanksgiving Groceries": "#CD853F", // Peru
+  "Rental Income": "#F0E68C", // Khaki
+  Entertainment: "#FF69B4", // HotPink
+  Transportation: "#DB7093", // PaleVioletRed
+  "Interest Income": "#CD853F", // Peru
   Bonus: "#6B8E23", // OliveDrab
-  "Consulting Work": "#4682B4", // SteelBlue
-  "Part-Time Job": "#DAA520", // GoldenRod
+  Investments: "#4682B4", // SteelBlue
+  "Freelance Work": "#DAA520", // GoldenRod
   "Online Sales": "#20B2AA", // LightSeaGreen
   "Freelance Writing": "#778899", // LightSlateGray
   "End of Year Bonus": "#5F9EA0", // CadetBlue
@@ -30,13 +30,13 @@ export const CategoryEmojis: { [key: string]: string } = {
   Electronics: "🖥️",
   "Dining Out": "🍽️",
   "Breakfast Supplies": "🥐",
-  "Household Items": "🏡",
-  "Christmas Gifts": "🎁",
-  "New Year Party Supplies": "🎉",
-  "Thanksgiving Groceries": "🦃",
+  "Rental Income": "🏡",
+  Entertainment: "🎁",
+  Transportation: "🎉",
+  "Interest Income": "🦃",
   Bonus: "🎊",
-  "Consulting Work": "💼",
-  "Part-Time Job": "⌚",
+  Investments: "💼",
+  "Freelance Work": "⌚",
   "Online Sales": "🛒",
   "Freelance Writing": "✍️",
   "End of Year Bonus": "🍾",
