@@ -1,3 +1,4 @@
+import { CurrencySymbol } from "@/config/currencySymbol";
 import { AntDesign } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 import { AutoSizeText, ResizeTextMode } from "react-native-auto-size-text";
@@ -18,7 +19,8 @@ export const Amount = ({ iconName, color, amount }: IAmountProps) => {
         numberOfLines={1}
         style={styles.amount}
       >
-        ₹{amount}
+        {CurrencySymbol.INR}
+        {amount}
       </AutoSizeText>
     </View>
   );
