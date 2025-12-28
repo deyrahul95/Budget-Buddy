@@ -10,6 +10,7 @@ import { ScrollView } from "react-native";
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [lastUpdated, setLastUpdated] = useState<number>(0);
 
   const db = useSQLiteContext();
 
@@ -36,6 +37,7 @@ export default function Home() {
     db.withTransactionAsync(async () => {
       await db.runAsync(DBQuery.DeleteTransaction, [id]);
       await getTransactions();
+      setLastUpdated(new Date().getMilliseconds());
     });
   };
 
@@ -47,7 +49,7 @@ export default function Home() {
         gap: 15,
       }}
     >
-      <TransactionSummery />
+      <TransactionSummery lastUpdated={lastUpdated} />
       <TransactionList
         categories={categories}
         transactions={transactions}

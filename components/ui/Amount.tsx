@@ -18,7 +18,7 @@ export const Amount = ({ iconName, color, amount }: IAmountProps) => {
         numberOfLines={1}
         style={styles.amount}
       >
-        ${amount}
+        ₹{amount}
       </AutoSizeText>
     </View>
   );

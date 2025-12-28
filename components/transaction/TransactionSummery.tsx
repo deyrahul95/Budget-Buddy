@@ -4,19 +4,18 @@ import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
 import { TimeStampFilter, TransactionAggregate } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { Text } from "react-native";
+import { Button, Text, View } from "react-native";
 
-const TransactionSummery = () => {
+const TransactionSummery = ({ lastUpdated }: any) => {
   const [transactionAggregate, setTransactionAggregate] =
     useState<TransactionAggregate>({
       totalExpenses: 0,
       totalIncome: 0,
     });
-
-  const [saving] = useState<number>(
-    transactionAggregate.totalIncome - transactionAggregate.totalExpenses
-  );
   const [filter, setFilter] = useState<TimeStampFilter>({ filter: "1m" });
+
+  const saving =
+    transactionAggregate.totalIncome - transactionAggregate.totalExpenses;
 
   const db = useSQLiteContext();
 
@@ -37,11 +36,18 @@ const TransactionSummery = () => {
 
   useEffect(() => {
     getAggregatedValues();
-  }, [db, filter]);
+  }, [db, filter, lastUpdated]);
 
   return (
     <Card>
       <Text>Summary for {readablePeriod}</Text>
+      <Text>Saving ₹{saving}</Text>
+      <Text>Total Income ₹{transactionAggregate.totalIncome}</Text>
+      <Text>Total Expenses ₹{transactionAggregate.totalExpenses}</Text>
+
+      <View style={{ marginTop: 10 }}>
+        <Button onPress={getAggregatedValues} title="Refresh" />
+      </View>
     </Card>
   );
 };
