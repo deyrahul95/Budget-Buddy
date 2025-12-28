@@ -50,7 +50,7 @@ const TransactionSummery = ({ lastUpdated }: any) => {
   };
 
   return (
-    <Card>
+    <Card style={styles.container}>
       <Text style={styles.periodTitle}>Summary for {readablePeriod}</Text>
       <Text style={styles.summeryText}>
         Income:{" "}
@@ -74,7 +74,7 @@ const TransactionSummery = ({ lastUpdated }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 15,
+    marginBottom: 10,
     paddingBottom: 7,
   },
   periodTitle: {
