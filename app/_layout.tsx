@@ -1,4 +1,4 @@
-import Loader from "@/components/Loader";
+import Loader from "@/components/ui/Loader";
 import { DBConfig } from "@/config/dbConfig";
 import { Stack } from "expo-router";
 import { SQLiteProvider } from "expo-sqlite";
