@@ -1,6 +1,6 @@
+import TransactionListItem from "@/components/transaction/TransactionListItem";
 import { Category, Transaction } from "@/types";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import TransactionListItem from "./TransactionListItem";
 
 type IProps = {
   categories: Category[];
