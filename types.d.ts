@@ -16,3 +16,17 @@ export type Category = {
   created_at: string;
   updated_at: string;
 };
+
+export type ITimeStamps = {
+  startTimeStamp: number;
+  endTimeStamp: number;
+};
+
+export type TransactionAggregate = {
+  totalIncome: number;
+  totalExpenses: number;
+};
+
+export type TimeStampFilter = {
+  filter: "1m" | "3m" | "6m" | "1y";
+};
