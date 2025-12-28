@@ -4,7 +4,13 @@
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
   },
-  "cSpell.words": ["budgetbuddy", "minuscircle", "pluscircle", "worklets"],
+  "cSpell.words": [
+    "AUTOINCREMENT",
+    "budgetbuddy",
+    "minuscircle",
+    "pluscircle",
+    "worklets"
+  ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
