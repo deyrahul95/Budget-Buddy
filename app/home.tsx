@@ -2,6 +2,7 @@
 import TransactionList from "@/components/transaction/TransactionList";
 import TransactionSummery from "@/components/transaction/TransactionSummery";
 import { DBQuery } from "@/config/dbConfig";
+import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
 import { Category, Transaction } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
@@ -20,8 +21,11 @@ export default function Home() {
   };
 
   const getTransactions = async () => {
+    const filterTimeStamp = calculateTimeStamp({ filter: "1m" });
+
     const result = await db.getAllAsync<Transaction>(
-      DBQuery.GetAllTransactions
+      DBQuery.GetAllTransactions,
+      [filterTimeStamp.startTimeStamp, filterTimeStamp.endTimeStamp]
     );
     setTransactions(result);
   };

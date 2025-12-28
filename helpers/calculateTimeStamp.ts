@@ -1,7 +1,7 @@
 import { ITimeStamps, TimeStampFilter } from "@/types";
 
 export const calculateTimeStamp = ({
-  filter = "1m",
+  filter,
 }: TimeStampFilter): ITimeStamps => {
   const now = new Date();
 
