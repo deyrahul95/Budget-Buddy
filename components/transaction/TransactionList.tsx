@@ -24,7 +24,6 @@ export default function TransactionList({
           key={transaction.id}
           activeOpacity={0.7}
           onLongPress={async () => await deleteTransaction(transaction.id)}
-          style={styles.itemContainer}
         >
           <TransactionListItem
             transaction={transaction}
@@ -39,10 +38,7 @@ export default function TransactionList({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 12,
-  },
-  itemContainer: {
-    marginHorizontal: 18,
-    marginTop: 12,
+    gap: 15,
+    marginBottom: 30,
   },
 });

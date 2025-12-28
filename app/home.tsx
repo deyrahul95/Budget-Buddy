@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import TransactionList from "@/components/transaction/TransactionList";
+import TransactionSummery from "@/components/transaction/TransactionSummery";
 import { DBQuery } from "@/config/dbConfig";
 import { Category, Transaction } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
@@ -39,7 +40,14 @@ export default function Home() {
   };
 
   return (
-    <ScrollView>
+    <ScrollView
+      contentContainerStyle={{
+        marginHorizontal: 18,
+        marginVertical: 15,
+        gap: 15,
+      }}
+    >
+      <TransactionSummery />
       <TransactionList
         categories={categories}
         transactions={transactions}
