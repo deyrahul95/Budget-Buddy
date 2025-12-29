@@ -28,7 +28,7 @@ export default function AddTransaction() {
   );
   const [description, setDescription] = useState<string | undefined>(undefined);
   const [amount, setAmount] = useState<string | undefined>(undefined);
-  const [categoryId, setCategoryId] = useState<number>(0);
+  const [categoryId, setCategoryId] = useState<number>(1);
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
@@ -79,7 +79,7 @@ export default function AddTransaction() {
   const resetForm = () => {
     setDescription(undefined);
     setAmount(undefined);
-    setCategoryId(0);
+    setCategoryId(1);
     setDate(new Date());
   };
 
@@ -99,7 +99,7 @@ export default function AddTransaction() {
         value={selectedType}
         onChange={(v) => {
           setSelectedType(v);
-          setCategoryId(0);
+          setCategoryId(1);
         }}
       />
 
