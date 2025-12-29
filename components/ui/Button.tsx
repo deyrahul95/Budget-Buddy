@@ -1,5 +1,11 @@
 import { Colors } from "@/config/theme";
-import { ActivityIndicator, Pressable, StyleSheet, Text } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  ViewStyle,
+} from "react-native";
 
 type ButtonVariant = "primary" | "secondary";
 
@@ -9,6 +15,7 @@ type Props = {
   variant?: ButtonVariant;
   disabled?: boolean;
   loading?: boolean;
+  style?: ViewStyle;
 };
 
 export const Button: React.FC<Props> = ({
@@ -17,6 +24,7 @@ export const Button: React.FC<Props> = ({
   variant = "primary",
   disabled = false,
   loading = false,
+  style = {},
 }) => {
   const variantStyle = VARIANT_STYLES[variant];
 
@@ -29,6 +37,7 @@ export const Button: React.FC<Props> = ({
         variantStyle.container,
         (disabled || loading) && styles.disabled,
         pressed && styles.pressed,
+        style,
       ]}
     >
       {loading ? (
@@ -62,6 +71,7 @@ const VARIANT_STYLES = {
 const styles = StyleSheet.create({
   base: {
     paddingVertical: 16,
+    paddingHorizontal: 10,
     borderRadius: 14,
     alignItems: "center",
 

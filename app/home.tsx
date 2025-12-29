@@ -4,6 +4,7 @@ import TransactionSummery from "@/components/transaction/TransactionSummery";
 import { Button } from "@/components/ui/Button";
 import Loader from "@/components/ui/Loader";
 import { DBQuery } from "@/config/dbConfig";
+import { Colors } from "@/config/theme";
 import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
 import { Category, Transaction } from "@/types";
 import { useRouter } from "expo-router";
@@ -56,6 +57,13 @@ export default function Home() {
     alert(`Transaction ${id} is deleted successfully.`);
   };
 
+  const refreshData = async () => {
+    SetLoading(true);
+    await getTransactions();
+    setLastUpdated(new Date().getMilliseconds());
+    SetLoading(false);
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -71,13 +79,24 @@ export default function Home() {
       <View
         style={{
           flex: 1,
-          borderRadius: 20,
-          overflow: "hidden",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          gap: 10,
         }}
       >
         <Button
           title="Add Expense / Income"
           onPress={() => router.navigate("/addTransaction")}
+          style={{ flex: 1 }}
+        />
+        <Button
+          title="Refresh"
+          variant="secondary"
+          onPress={refreshData}
+          style={{
+            paddingHorizontal: 20,
+            backgroundColor: Colors.textSecondary,
+          }}
         />
       </View>
       <TransactionSummery lastUpdated={lastUpdated} />
