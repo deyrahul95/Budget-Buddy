@@ -10,7 +10,7 @@ import { Category, Transaction } from "@/types";
 import { useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 
 export default function Home() {
   const [loading, SetLoading] = useState<boolean>(false);
@@ -54,7 +54,7 @@ export default function Home() {
       setLastUpdated(new Date().getMilliseconds());
     });
     // Todo: Please update this to toaster
-    alert(`Transaction ${id} is deleted successfully.`);
+    Alert.alert("Success 🎉", `Transaction ${id} is deleted successfully.`);
   };
 
   const refreshData = async () => {

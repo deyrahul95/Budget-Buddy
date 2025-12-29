@@ -1,6 +1,7 @@
 import { Category } from "@/types";
 import { useEffect, useState } from "react";
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -71,7 +72,7 @@ export default function AddTransaction() {
       ]);
     });
 
-    alert("Expense added successfully!");
+    Alert.alert("Success 🎉", "Expense added successfully!");
     resetForm();
   };
 
