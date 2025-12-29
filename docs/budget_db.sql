@@ -40,25 +40,25 @@ END;
 
 -- Inserting default categories for expenses
 INSERT INTO categories (name, type) VALUES
-('EMI', 'Expense'),
-('Groceries', 'Expense'),
 ('Food', 'Expense'),
-('Rent', 'Expense'),
+('Groceries', 'Expense'),
 ('Utilities', 'Expense'),
-('Transportation', 'Expense'),
-('Dining Out', 'Expense'),
+('Rent', 'Expense'),
+('EMI', 'Expense'),
+('Clothing', 'Expense'),
+('Personal Care', 'Expense'),
 ('Entertainment', 'Expense'),
+('Transportation', 'Expense'),
 ('Healthcare', 'Expense'),
 ('Insurance', 'Expense'),
-('Personal Care', 'Expense'),
-('Clothing', 'Expense'),
-('Gifts', 'Expense');
+('Gifts', 'Expense'),
+('Dining Out', 'Expense');
 
 -- Inserting default categories for income
 INSERT INTO categories (name, type) VALUES
 ('Salary', 'Income'),
+('Bonus', 'Income'),
+('Interest Income', 'Income'),
 ('Freelance Work', 'Income'),
 ('Investments', 'Income'),
-('Rental Income', 'Income'),
-('Sales Revenue', 'Income'),
-('Interest Income', 'Income');
+('Rental Income', 'Income');
