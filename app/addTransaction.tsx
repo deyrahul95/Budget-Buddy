@@ -1,16 +1,19 @@
 import { Category } from "@/types";
 import { useEffect, useState } from "react";
 import {
-    Button,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 
+import { CategoryDropdown } from "@/components/category/CategoryDropdown";
+import { Button } from "@/components/ui/Button";
+import { SegmentedTabs } from "@/components/ui/SegmentedTabs";
 import { DBQuery } from "@/config/dbConfig";
-import { Picker } from "@react-native-picker/picker";
+import { Colors } from "@/config/theme";
 import { useSQLiteContext } from "expo-sqlite";
 
 export default function AddTransaction() {
@@ -68,100 +71,95 @@ export default function AddTransaction() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Add New Expense</Text>
-      </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      style={styles.container}
+    >
+      <SegmentedTabs
+        value={selectedType}
+        onChange={(v) => {
+          setSelectedType(v);
+          setCategoryId(0);
+        }}
+      />
 
-      <View style={styles.formContainer}>
-        <Picker
-          selectedValue={selectedType}
-          style={styles.picker}
-          onValueChange={(itemValue) => setSelectedType(itemValue)}
-        >
-          <Picker.Item label="Expense" value="Expense" />
-          <Picker.Item label="Income" value="Income" />
-        </Picker>
-
+      {/* Amount */}
+      <View style={styles.amountContainer}>
+        <Text style={styles.currency}>₹</Text>
         <TextInput
-          style={styles.input}
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-          autoCapitalize="none"
-        />
-
-        <TextInput
-          style={styles.input}
-          keyboardType="numeric"
-          placeholder="Amount"
           value={amount}
           onChangeText={setAmount}
+          placeholder="0"
+          keyboardType="numeric"
+          style={styles.amountInput}
+          placeholderTextColor={Colors.textSecondary}
         />
-
-        <View style={styles.categoryGroup}>
-          <Text style={styles.categoryLabel}>Category:</Text>
-          <Picker
-            selectedValue={categoryId}
-            style={styles.picker}
-            onValueChange={(id: number) => setCategoryId(id)}
-          >
-            {categoriesForSelectedType.map((cat: Category) => (
-              <Picker.Item key={cat.id} label={cat.name} value={cat.id} />
-            ))}
-          </Picker>
-        </View>
       </View>
 
+      {/* Description */}
+      <TextInput
+        value={description}
+        onChangeText={setDescription}
+        placeholder="Description"
+        style={styles.description}
+        placeholderTextColor={Colors.textSecondary}
+      />
+
+      {/* Category */}
+      <Text style={styles.label}>Category</Text>
+      <CategoryDropdown
+        value={categoryId}
+        onChange={setCategoryId}
+        categories={categoriesForSelectedType}
+      />
+
       <Button
-        title="Save Expense"
-        color="purple"
+        variant="primary"
+        title={`Save ${selectedType}`}
         onPress={handleSubmit}
         disabled={!description || !amount}
       />
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: "#f5f5f5",
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "600",
-    marginBottom: 15,
-    color: "#333",
-  },
-  formContainer: {
     flex: 1,
+    backgroundColor: Colors.background,
+    padding: 20,
+    gap: 24,
   },
-  picker: {
-    height: 50,
-    width: "100%",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-  },
-  categoryGroup: {
+  amountContainer: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 32,
   },
-  categoryLabel: {
-    fontWeight: "600",
+  currency: {
+    fontSize: 32,
+    fontWeight: "700",
+    color: Colors.primary,
+    marginRight: 6,
+  },
+  amountInput: {
+    fontSize: 42,
+    fontWeight: "700",
+    color: Colors.textPrimary,
+    textAlign: "center",
+    minWidth: 120,
+  },
+  description: {
+    backgroundColor: Colors.white,
+    borderRadius: 12,
+    padding: 14,
     fontSize: 16,
-    marginLeft: 10,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: Colors.textSecondary,
   },
 });

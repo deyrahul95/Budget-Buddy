@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import TransactionList from "@/components/transaction/TransactionList";
 import TransactionSummery from "@/components/transaction/TransactionSummery";
+import { Button } from "@/components/ui/Button";
 import { DBQuery } from "@/config/dbConfig";
 import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
 import { Category, Transaction } from "@/types";
 import { useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { Button, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -66,7 +67,6 @@ export default function Home() {
       >
         <Button
           title="Add Expense / Income"
-          color="purple"
           onPress={() => router.navigate("/addTransaction")}
         />
       </View>

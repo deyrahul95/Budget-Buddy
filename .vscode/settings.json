@@ -9,6 +9,7 @@
     "budgetbuddy",
     "minuscircle",
     "pluscircle",
+    "Pressable",
     "worklets"
   ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
