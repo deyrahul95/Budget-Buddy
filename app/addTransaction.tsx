@@ -13,7 +13,7 @@ import { DBQuery } from "@/config/dbConfig";
 import { Picker } from "@react-native-picker/picker";
 import { useSQLiteContext } from "expo-sqlite";
 
-export default function AddExpensePage() {
+export default function AddTransaction() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedType, setSelectedType] = useState<"Expense" | "Income">(
     "Expense"
