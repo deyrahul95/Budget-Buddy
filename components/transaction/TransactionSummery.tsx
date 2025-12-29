@@ -5,7 +5,8 @@ import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
 import { TimeStampFilter, TransactionAggregate } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, TextStyle } from "react-native";
+import { StyleSheet, Text, TextStyle, View } from "react-native";
+import BudgetPieChart from "../ui/BudgetPieChart";
 
 const TransactionSummery = ({ lastUpdated }: any) => {
   const [transactionAggregate, setTransactionAggregate] =
@@ -13,20 +14,20 @@ const TransactionSummery = ({ lastUpdated }: any) => {
       totalExpenses: 0,
       totalIncome: 0,
     });
-  const [filter, setFilter] = useState<TimeStampFilter>({ filter: "1m" });
+  const [filter] = useState<TimeStampFilter>({ filter: "1m" });
 
   const db = useSQLiteContext();
 
-  const getAggregatedValues = async () => {
-    const filterTimeStamps = calculateTimeStamp(filter);
-    const result = await db.getAllAsync<TransactionAggregate>(
-      DBQuery.TransactionByTimeStamp,
-      [filterTimeStamps.startTimeStamp, filterTimeStamps.endTimeStamp]
-    );
-    setTransactionAggregate(result[0]);
-  };
-
   useEffect(() => {
+    const getAggregatedValues = async () => {
+      const filterTimeStamps = calculateTimeStamp(filter);
+      const result = await db.getAllAsync<TransactionAggregate>(
+        DBQuery.TransactionByTimeStamp,
+        [filterTimeStamps.startTimeStamp, filterTimeStamps.endTimeStamp]
+      );
+      setTransactionAggregate(result[0]);
+    };
+
     getAggregatedValues();
   }, [db, filter, lastUpdated]);
 
@@ -52,22 +53,32 @@ const TransactionSummery = ({ lastUpdated }: any) => {
   return (
     <Card style={styles.container}>
       <Text style={styles.periodTitle}>Summary for {readablePeriod}</Text>
-      <Text style={styles.summeryText}>
-        Income:{" "}
-        <Text style={getMoneyTextStyle(totalIncome)}>
-          {formatMoney(totalIncome)}
-        </Text>
-      </Text>
-      <Text style={styles.summeryText}>
-        Expenses:{" "}
-        <Text style={getMoneyTextStyle(totalExpenses)}>
-          {formatMoney(totalExpenses)}
-        </Text>
-      </Text>
-      <Text style={styles.summeryText}>
-        Savings:{" "}
-        <Text style={getMoneyTextStyle(savings)}>{formatMoney(savings)}</Text>
-      </Text>
+      <View style={{ flex: 1, flexDirection: "row", gap: 3 }}>
+        <View style={{ width: "55%" }}>
+          <Text style={styles.summeryText}>
+            Income:{" "}
+            <Text style={getMoneyTextStyle(totalIncome)}>
+              {formatMoney(totalIncome)}
+            </Text>
+          </Text>
+          <Text style={styles.summeryText}>
+            Expenses:{" "}
+            <Text style={getMoneyTextStyle(totalExpenses)}>
+              {formatMoney(totalExpenses)}
+            </Text>
+          </Text>
+          <Text style={styles.summeryText}>
+            Savings:{" "}
+            <Text style={getMoneyTextStyle(savings)}>
+              {formatMoney(savings)}
+            </Text>
+          </Text>
+        </View>
+
+        <View style={{ width: "45%" }}>
+          <BudgetPieChart expense={totalExpenses} income={totalIncome} />
+        </View>
+      </View>
     </Card>
   );
 };
