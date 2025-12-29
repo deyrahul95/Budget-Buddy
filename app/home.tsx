@@ -2,6 +2,7 @@
 import TransactionList from "@/components/transaction/TransactionList";
 import TransactionSummery from "@/components/transaction/TransactionSummery";
 import { Button } from "@/components/ui/Button";
+import Loader from "@/components/ui/Loader";
 import { DBQuery } from "@/config/dbConfig";
 import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
 import { Category, Transaction } from "@/types";
@@ -11,6 +12,7 @@ import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 export default function Home() {
+  const [loading, SetLoading] = useState<boolean>(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [lastUpdated, setLastUpdated] = useState<number>(0);
@@ -34,10 +36,14 @@ export default function Home() {
   };
 
   useEffect(() => {
+    SetLoading(true);
+
     db.withTransactionAsync(async () => {
       await getCategories();
       await getTransactions();
     });
+
+    SetLoading(false);
   }, [db]);
 
   const deleteTransaction = async (id: number) => {
@@ -49,6 +55,10 @@ export default function Home() {
     // Todo: Please update this to toaster
     alert(`Transaction ${id} is deleted successfully.`);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView
