@@ -15,7 +15,7 @@ export default function BudgetPieChart({
   const saving = income - expense;
 
   const expensePercent = (expense / income) * 100;
-  const savingPercent = saving < 0 ? 0 : (saving / income) * 100;
+  const savingPercent = (saving / income) * 100;
 
   const backgroundColor = expensePercent <= 60 ? "#E8F5E9" : "#FDECEA";
 
@@ -28,7 +28,7 @@ export default function BudgetPieChart({
     },
     {
       key: 2,
-      value: saving,
+      value: Math.max(saving, 0),
       svg: { fill: "#43A047" },
       label: `${savingPercent.toFixed(0)}%`,
     },
