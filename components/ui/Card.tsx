@@ -1,3 +1,4 @@
+import { Colors } from "@/config/theme";
 import { PropsWithChildren } from "react";
 import { StyleSheet, View, ViewStyle } from "react-native";
 
@@ -13,9 +14,9 @@ const styles = StyleSheet.create({
   card: {
     padding: 15,
     borderRadius: 15,
-    backgroundColor: "white",
+    backgroundColor: Colors.white,
     elevation: 8,
-    shadowColor: "#000",
+    shadowColor: Colors.textPrimary,
     shadowRadius: 8,
     shadowOffset: {
       height: 6,

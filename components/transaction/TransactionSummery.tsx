@@ -1,6 +1,7 @@
 import Card from "@/components/ui/Card";
 import { CurrencySymbol } from "@/config/currencySymbol";
 import { DBQuery } from "@/config/dbConfig";
+import { Colors } from "@/config/theme";
 import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
 import { TimeStampFilter, TransactionAggregate } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
@@ -42,7 +43,7 @@ const TransactionSummery = ({ lastUpdated }: any) => {
 
   const getMoneyTextStyle = (value: number): TextStyle => ({
     fontWeight: "bold",
-    color: value < 0 ? "#ff4500" : "#2e8b57",
+    color: value < 0 ? Colors.danger : Colors.secondary,
   });
 
   const formatMoney = (value: number) => {
@@ -91,12 +92,12 @@ const styles = StyleSheet.create({
   periodTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#333",
+    color: Colors.textPrimary,
     marginBottom: 15,
   },
   summeryText: {
     fontSize: 18,
-    color: "#333",
+    color: Colors.textPrimary,
     marginBottom: 10,
   },
 });

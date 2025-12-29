@@ -1,3 +1,4 @@
+import { Colors } from "@/config/theme";
 import React from "react";
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { Text as SvgText } from "react-native-svg";
@@ -17,19 +18,20 @@ export default function BudgetPieChart({
   const expensePercent = (expense / income) * 100;
   const savingPercent = (saving / income) * 100;
 
-  const backgroundColor = expensePercent <= 60 ? "#E8F5E9" : "#FDECEA";
+  const backgroundColor =
+    expensePercent <= 60 ? Colors.secondary + 25 : Colors.danger + 25;
 
   const data = [
     {
       key: 1,
       value: expense,
-      svg: { fill: "#E53935" },
+      svg: { fill: Colors.danger },
       label: `${expensePercent.toFixed(0)}%`,
     },
     {
       key: 2,
       value: Math.max(saving, 0),
-      svg: { fill: "#43A047" },
+      svg: { fill: Colors.secondary },
       label: `${savingPercent.toFixed(0)}%`,
     },
   ];
@@ -38,7 +40,7 @@ export default function BudgetPieChart({
 
   const isTablet = width >= 768;
 
-  const chartSize = isTablet ? width * 0.40 : width * 0.25;
+  const chartSize = isTablet ? width * 0.4 : width * 0.25;
   const outerRadius = chartSize / 2;
   const innerRadius = outerRadius * 0.1;
   const labelRadius = outerRadius * 0.5;

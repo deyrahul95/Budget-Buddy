@@ -3,6 +3,7 @@ import { TransactionInfo } from "@/components/transaction/TransactionInfo";
 import { Amount } from "@/components/ui/Amount";
 import Card from "@/components/ui/Card";
 import { CategoryColors, CategoryEmojis } from "@/config/constants";
+import { Colors } from "@/config/theme";
 import { Category, Transaction } from "@/types";
 import { StyleSheet, View } from "react-native";
 
@@ -17,7 +18,8 @@ export default function TransactionListItem({
 }: ITransactionListItemProps) {
   const iconName =
     transaction.type === "Expense" ? "minus-circle" : "plus-circle";
-  const color = transaction.type === "Expense" ? "red" : "green";
+  const color =
+    transaction.type === "Expense" ? Colors.danger : Colors.secondary;
   const categoryColor =
     CategoryColors[categoryInfo?.name ?? "Default"] ??
     CategoryColors["Default"];
