@@ -1,16 +1,14 @@
+import { getCategoryColor, getCategoryEmoji } from "@/helpers/categoryHelper";
 import { StyleSheet, Text, View } from "react-native";
 
 type ICategoryInfoProps = {
   categoryName: string | undefined;
-  categoryColor: string;
-  emoji: string;
 };
 
-export const CategoryInfo = ({
-  categoryName,
-  categoryColor,
-  emoji,
-}: ICategoryInfoProps) => {
+export const CategoryInfo = ({ categoryName }: ICategoryInfoProps) => {
+  const categoryColor = getCategoryColor(categoryName);
+  const emoji = getCategoryEmoji(categoryName);
+
   return (
     <View
       style={[

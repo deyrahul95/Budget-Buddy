@@ -35,3 +35,17 @@ export const calculateTimeStamp = ({
     endTimeStamp: Math.floor(endOfMonth.getTime() / 1000),
   };
 };
+
+
+export function getDateBounds() {
+  const today = new Date();
+  today.setHours(0,0,0);
+
+  const oneMonthAgo = new Date(today);
+  oneMonthAgo.setDate(today.getDate() - 30);
+
+  return {
+    minDate: oneMonthAgo,
+    maxDate: today,
+  };
+}

@@ -21,6 +21,14 @@ export default function RootLayout() {
               headerLargeTitleEnabled: true,
             }}
           />
+          <Stack.Screen
+            name="addTransaction"
+            options={{
+              headerShown: true,
+              headerTitle: "Add New Transaction",
+              headerTitleAlign: "center",
+            }}
+          />
         </Stack>
       </SQLiteProvider>
     </Suspense>

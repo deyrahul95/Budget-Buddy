@@ -1,19 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import TransactionList from "@/components/transaction/TransactionList";
 import TransactionSummery from "@/components/transaction/TransactionSummery";
+import { Button } from "@/components/ui/Button";
+import Loader from "@/components/ui/Loader";
 import { DBQuery } from "@/config/dbConfig";
-import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
+import { Colors } from "@/config/theme";
+import { calculateTimeStamp } from "@/helpers/dateHelper";
 import { Category, Transaction } from "@/types";
+import { useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 
 export default function Home() {
+  const [loading, SetLoading] = useState<boolean>(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [lastUpdated, setLastUpdated] = useState<number>(0);
 
   const db = useSQLiteContext();
+  const router = useRouter();
 
   const getCategories = async () => {
     const result = await db.getAllAsync<Category>(DBQuery.GetAllCategories);
@@ -31,10 +37,14 @@ export default function Home() {
   };
 
   useEffect(() => {
+    SetLoading(true);
+
     db.withTransactionAsync(async () => {
       await getCategories();
       await getTransactions();
     });
+
+    SetLoading(false);
   }, [db]);
 
   const deleteTransaction = async (id: number) => {
@@ -43,7 +53,20 @@ export default function Home() {
       await getTransactions();
       setLastUpdated(new Date().getMilliseconds());
     });
+    // Todo: Please update this to toaster
+    Alert.alert("Success 🎉", `Transaction ${id} is deleted successfully.`);
   };
+
+  const refreshData = async () => {
+    SetLoading(true);
+    await getTransactions();
+    setLastUpdated(new Date().getMilliseconds());
+    SetLoading(false);
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView
@@ -53,6 +76,29 @@ export default function Home() {
         gap: 15,
       }}
     >
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          gap: 10,
+        }}
+      >
+        <Button
+          title="Add Expense / Income"
+          onPress={() => router.navigate("/addTransaction")}
+          style={{ flex: 1 }}
+        />
+        <Button
+          title="Refresh"
+          variant="secondary"
+          onPress={refreshData}
+          style={{
+            paddingHorizontal: 20,
+            backgroundColor: Colors.textSecondary,
+          }}
+        />
+      </View>
       <TransactionSummery lastUpdated={lastUpdated} />
       <TransactionList
         categories={categories}

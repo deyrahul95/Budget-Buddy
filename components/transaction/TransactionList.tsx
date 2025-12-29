@@ -1,6 +1,6 @@
 import TransactionListItem from "@/components/transaction/TransactionListItem";
 import { Category, Transaction } from "@/types";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 
 type IProps = {
   categories: Category[];
@@ -17,13 +17,29 @@ export default function TransactionList({
     return categories.find((item: Category) => item.id === category_id);
   };
 
+  const confirmDelete = (id: number) => {
+    Alert.alert(
+      "Delete Transaction ❌",
+      "This action cannot be undone. Continue?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Yes",
+          onPress: async () => {
+            await deleteTransaction(id);
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <View style={styles.container}>
       {transactions.map((transaction: Transaction) => (
         <TouchableOpacity
           key={transaction.id}
           activeOpacity={0.7}
-          onLongPress={async () => await deleteTransaction(transaction.id)}
+          onLongPress={() => confirmDelete(transaction.id)}
         >
           <TransactionListItem
             transaction={transaction}

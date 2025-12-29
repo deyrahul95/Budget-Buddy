@@ -1,3 +1,4 @@
+import { Colors } from "@/config/theme";
 import { Text, View } from "react-native";
 
 type ITransactionInfoProps = {
@@ -15,7 +16,7 @@ export const TransactionInfo = ({
     <View style={{ flexGrow: 1, gap: 6, flexShrink: 1 }}>
       <Text style={{ fontSize: 16, fontWeight: "bold" }}>{description}</Text>
       <Text>Transaction number {id}</Text>
-      <Text style={{ fontSize: 12, color: "gray" }}>
+      <Text style={{ fontSize: 12, color: Colors.textSecondary }}>
         {new Date(date * 1000).toDateString()}
       </Text>
     </View>

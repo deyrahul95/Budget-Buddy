@@ -7,8 +7,10 @@
   "cSpell.words": [
     "AUTOINCREMENT",
     "budgetbuddy",
+    "datetimepicker",
     "minuscircle",
     "pluscircle",
+    "Pressable",
     "worklets"
   ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
