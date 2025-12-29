@@ -4,9 +4,10 @@ import TransactionSummery from "@/components/transaction/TransactionSummery";
 import { DBQuery } from "@/config/dbConfig";
 import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
 import { Category, Transaction } from "@/types";
+import { useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
+import { Button, ScrollView, View } from "react-native";
 
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -14,6 +15,7 @@ export default function Home() {
   const [lastUpdated, setLastUpdated] = useState<number>(0);
 
   const db = useSQLiteContext();
+  const router = useRouter();
 
   const getCategories = async () => {
     const result = await db.getAllAsync<Category>(DBQuery.GetAllCategories);
@@ -43,6 +45,8 @@ export default function Home() {
       await getTransactions();
       setLastUpdated(new Date().getMilliseconds());
     });
+    // Todo: Please update this to toaster
+    alert(`Transaction ${id} is deleted successfully.`);
   };
 
   return (
@@ -53,6 +57,19 @@ export default function Home() {
         gap: 15,
       }}
     >
+      <View
+        style={{
+          flex: 1,
+          borderRadius: 20,
+          overflow: "hidden",
+        }}
+      >
+        <Button
+          title="Add Expense / Income"
+          color="purple"
+          onPress={() => router.navigate("/addTransaction")}
+        />
+      </View>
       <TransactionSummery lastUpdated={lastUpdated} />
       <TransactionList
         categories={categories}
