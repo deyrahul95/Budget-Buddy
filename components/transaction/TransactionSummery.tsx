@@ -43,7 +43,7 @@ const TransactionSummery = ({ lastUpdated }: any) => {
 
   const getMoneyTextStyle = (value: number): TextStyle => ({
     fontWeight: "bold",
-    color: value < 0 ? Colors.danger : Colors.secondary,
+    color: value < 1000 ? Colors.danger : Colors.secondary,
   });
 
   const formatMoney = (value: number) => {

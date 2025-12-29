@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/Button";
 import { SegmentedTabs } from "@/components/ui/SegmentedTabs";
 import { DBQuery } from "@/config/dbConfig";
 import { Colors } from "@/config/theme";
+import { isValidAmount, sanitizeAmount } from "@/helpers/amount";
 import { getDateBounds } from "@/helpers/dateHelper";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useSQLiteContext } from "expo-sqlite";
@@ -86,6 +87,7 @@ export default function AddTransaction() {
   );
 
   const { minDate, maxDate } = getDateBounds();
+  const isAmountValid = isValidAmount(amount ?? "");
 
   return (
     <KeyboardAvoidingView
@@ -105,10 +107,16 @@ export default function AddTransaction() {
         <Text style={styles.currency}>₹</Text>
         <TextInput
           value={amount}
-          onChangeText={setAmount}
+          onChangeText={(text) => {
+            const sanitized = sanitizeAmount(text);
+            setAmount(sanitized);
+          }}
           placeholder="0"
           keyboardType="numeric"
-          style={styles.amountInput}
+          style={[
+            styles.amountInput,
+            { color: isAmountValid ? Colors.textPrimary : Colors.danger },
+          ]}
           placeholderTextColor={Colors.textSecondary}
         />
       </View>
@@ -153,7 +161,7 @@ export default function AddTransaction() {
         variant="primary"
         title={`Save ${selectedType}`}
         onPress={handleSubmit}
-        disabled={!description || !amount}
+        disabled={!description || !amount || !isAmountValid}
       />
     </KeyboardAvoidingView>
   );
@@ -181,7 +189,6 @@ const styles = StyleSheet.create({
   amountInput: {
     fontSize: 42,
     fontWeight: "700",
-    color: Colors.textPrimary,
     textAlign: "center",
     minWidth: 120,
   },
