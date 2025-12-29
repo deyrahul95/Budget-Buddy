@@ -2,7 +2,7 @@ import Card from "@/components/ui/Card";
 import { CurrencySymbol } from "@/config/currencySymbol";
 import { DBQuery } from "@/config/dbConfig";
 import { Colors } from "@/config/theme";
-import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
+import { calculateTimeStamp } from "@/helpers/dateHelper";
 import { TimeStampFilter, TransactionAggregate } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";

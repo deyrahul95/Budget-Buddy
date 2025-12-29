@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import Loader from "@/components/ui/Loader";
 import { DBQuery } from "@/config/dbConfig";
 import { Colors } from "@/config/theme";
-import { calculateTimeStamp } from "@/helpers/calculateTimeStamp";
+import { calculateTimeStamp } from "@/helpers/dateHelper";
 import { Category, Transaction } from "@/types";
 import { useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";

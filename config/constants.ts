@@ -17,7 +17,7 @@ export const CategoryColors: { [key: string]: string } = {
   "Online Sales": "#20B2AA", // LightSeaGreen
   "Freelance Writing": "#778899", // LightSlateGray
   Clothing: "#5F9EA0", // CadetBlue
-  "Thanksgiving Freelance": "#BDB76B", // DarkKhaki
+  Food: "#BDB76B", // DarkKhaki
   Default: "#D3D3D3", // LightGray
 };
 
@@ -40,6 +40,6 @@ export const CategoryEmojis: { [key: string]: string } = {
   "Online Sales": "🛒",
   "Freelance Writing": "✍️",
   Clothing: "👔",
-  "Thanksgiving Freelance": "🍂",
+  Food: "🍨",
   Default: "🫰🏼",
 };

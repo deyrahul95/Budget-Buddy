@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -14,6 +15,8 @@ import { Button } from "@/components/ui/Button";
 import { SegmentedTabs } from "@/components/ui/SegmentedTabs";
 import { DBQuery } from "@/config/dbConfig";
 import { Colors } from "@/config/theme";
+import { getDateBounds } from "@/helpers/dateHelper";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { useSQLiteContext } from "expo-sqlite";
 
 export default function AddTransaction() {
@@ -24,6 +27,8 @@ export default function AddTransaction() {
   const [description, setDescription] = useState<string | undefined>(undefined);
   const [amount, setAmount] = useState<string | undefined>(undefined);
   const [categoryId, setCategoryId] = useState<number>(0);
+  const [date, setDate] = useState<Date>(new Date());
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
   const db = useSQLiteContext();
 
@@ -37,13 +42,23 @@ export default function AddTransaction() {
     loadCategories();
   }, [db]);
 
+  const handleDateChange = (_: any, selectedDate?: Date) => {
+    setShowDatePicker(false);
+
+    if (!selectedDate) {
+      return;
+    }
+
+    setDate(selectedDate);
+  };
+
   const handleSubmit = async () => {
     if (!description || !amount) {
       return;
     }
 
     const parseAmount = parseFloat(amount);
-    const timeStamp = Math.floor(new Date().getTime() / 1000);
+    const timeStamp = Math.floor(date.getTime() / 1000);
 
     await db.withTransactionAsync(async () => {
       await db.runAsync(DBQuery.AddTransaction, [
@@ -59,16 +74,18 @@ export default function AddTransaction() {
     resetForm();
   };
 
-  const categoriesForSelectedType = categories.filter(
-    (c) => c.type === selectedType
-  );
-
-  // Reset form
   const resetForm = () => {
     setDescription(undefined);
     setAmount(undefined);
     setCategoryId(0);
+    setDate(new Date());
   };
+
+  const categoriesForSelectedType = categories.filter(
+    (c) => c.type === selectedType
+  );
+
+  const { minDate, maxDate } = getDateBounds();
 
   return (
     <KeyboardAvoidingView
@@ -112,6 +129,25 @@ export default function AddTransaction() {
         onChange={setCategoryId}
         categories={categoriesForSelectedType}
       />
+
+      <Text style={styles.label}>Date</Text>
+      <Pressable
+        onPress={() => setShowDatePicker(true)}
+        style={styles.dateField}
+      >
+        <Text style={styles.dateText}>{date.toDateString()}</Text>
+      </Pressable>
+
+      {showDatePicker && (
+        <DateTimePicker
+          value={date}
+          mode="date"
+          display="default"
+          minimumDate={minDate}
+          maximumDate={maxDate}
+          onChange={handleDateChange}
+        />
+      )}
 
       <Button
         variant="primary"
@@ -161,5 +197,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     color: Colors.textSecondary,
+  },
+  dateField: {
+    backgroundColor: Colors.white,
+    borderRadius: 12,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  dateText: {
+    fontSize: 16,
+    color: Colors.textPrimary,
   },
 });
