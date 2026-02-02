@@ -115,7 +115,7 @@ src/
 
 ## 🗺 Roadmap
 
-- [✅] Database migrations
+- [x] Database migrations
 - [ ] Add confirmation on long press the transaction card for deleting transaction
 - [ ] Add category emoji and color into database and fetch it from their rather than depend on constants.
 - [ ] Dark mode
